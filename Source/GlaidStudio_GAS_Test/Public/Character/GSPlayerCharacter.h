@@ -6,12 +6,14 @@
 #include "Character/GSBaseCharacterClass.h"
 #include "GSPlayerCharacter.generated.h"
 
-/**
- * 
- */
+class UInputMappingContext;
+class UInputAction;
+
 UCLASS()
 class GLAIDSTUDIO_GAS_TEST_API AGSPlayerCharacter : public AGSBaseCharacterClass
 {
 	GENERATED_BODY()
+
+
 	
 };

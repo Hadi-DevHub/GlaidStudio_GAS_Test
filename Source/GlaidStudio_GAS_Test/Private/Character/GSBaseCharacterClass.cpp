@@ -8,6 +8,16 @@ AGSBaseCharacterClass::AGSBaseCharacterClass()
 
 }
 
+UAbilitySystemComponent* AGSBaseCharacterClass::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
+}
+
+UAttributeSet* AGSBaseCharacterClass::GetAttributeSet() const
+{
+	return AttributeSet;
+}
+
 void AGSBaseCharacterClass::BeginPlay()
 {
 	Super::BeginPlay();

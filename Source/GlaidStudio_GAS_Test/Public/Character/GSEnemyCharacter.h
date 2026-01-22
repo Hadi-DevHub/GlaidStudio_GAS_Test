@@ -6,12 +6,21 @@
 #include "Character/GSBaseCharacterClass.h"
 #include "GSEnemyCharacter.generated.h"
 
-/**
- * 
- */
+
 UCLASS()
 class GLAIDSTUDIO_GAS_TEST_API AGSEnemyCharacter : public AGSBaseCharacterClass
 {
 	GENERATED_BODY()
+
+public:
+
+	AGSEnemyCharacter();
+
+protected:
+
+	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaTime) override;
+
+private:
 	
 };

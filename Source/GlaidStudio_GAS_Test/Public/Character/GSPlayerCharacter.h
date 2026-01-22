@@ -14,6 +14,18 @@ class GLAIDSTUDIO_GAS_TEST_API AGSPlayerCharacter : public AGSBaseCharacterClass
 {
 	GENERATED_BODY()
 
+public:
+
+	AGSPlayerCharacter();
+	virtual void PossessedBy(AController* NewController) override;
+
+protected:
+
+	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaTime) override;
+
+private:
+	void InitAbilityActorInfo();
 
 	
 };

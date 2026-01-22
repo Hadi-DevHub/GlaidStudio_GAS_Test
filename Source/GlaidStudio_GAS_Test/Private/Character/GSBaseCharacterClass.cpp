@@ -2,10 +2,17 @@
 
 #include "Character/GSBaseCharacterClass.h"
 
+#include "Components/CapsuleComponent.h"
+
 AGSBaseCharacterClass::AGSBaseCharacterClass()
 {
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 
+	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
+	GetCapsuleComponent()->SetGenerateOverlapEvents(false);
+	
+	GetMesh()->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
+	GetMesh()->SetGenerateOverlapEvents(true);
 }
 
 UAbilitySystemComponent* AGSBaseCharacterClass::GetAbilitySystemComponent() const

@@ -9,7 +9,7 @@
 
 AGSPlayerCharacter::AGSPlayerCharacter()
 {
-
+	
 }
 
 void AGSPlayerCharacter::PossessedBy(AController* NewController)

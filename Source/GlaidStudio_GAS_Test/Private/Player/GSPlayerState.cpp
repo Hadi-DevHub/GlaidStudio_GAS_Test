@@ -2,4 +2,24 @@
 
 
 #include "Player/GSPlayerState.h"
+#include "AbilitySystem/GSAbilitySystemComponent.h"
+#include "AbilitySystem/GSAttributeSet.h"
 
+AGSPlayerState::AGSPlayerState()
+{
+	AbilitySystemComponent = CreateDefaultSubobject<UGSAbilitySystemComponent>("GSAbilitySystemComponent");
+	AbilitySystemComponent->SetIsReplicated(true);
+	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);
+	
+	AttributeSet = CreateDefaultSubobject<UGSAttributeSet>("GSAttributeSet");
+};
+
+UAbilitySystemComponent* AGSPlayerState::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
+}
+
+UAttributeSet* AGSPlayerState::GetAttributeSet() const
+{
+	return AttributeSet;
+}

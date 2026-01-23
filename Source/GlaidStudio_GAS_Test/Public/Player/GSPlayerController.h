@@ -35,6 +35,7 @@ protected:
 	void OnAbilityInputTagHeld(FGameplayTag InputTag);
 	
 	void Move(const FInputActionValue& InputActionValue);
+	void Look(const FInputActionValue& InputActionValue);
 	
 private:
 
@@ -46,6 +47,9 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = Input)
 	TObjectPtr<UInputAction> LookInputAction;
+
+	UPROPERTY(EditAnywhere, Category = Input)
+	float CameraSensitivity = 1.f;
 
 	UPROPERTY(EditDefaultsOnly, Category = Input)
 	TObjectPtr<UGSInputConfig> InputConfig;

@@ -26,24 +26,26 @@ template <class UserClass, typename PressedFuncType, typename ReleasedFuncType, 
 void UGSEnhancedInputComponent::BindAbilityActions(const UGSInputConfig* InputConfig, UserClass* Object,
 	PressedFuncType PressedFunc, ReleasedFuncType ReleasedFunc, HeldFuncType HeldFunc)
 {
-	check(InputConfig);
-
-	for (const FGSInputAction& Action : InputConfig->InputActions)
+	if (InputConfig)
 	{
-		if (Action.InputAction && Action.InputTag.IsValid())
+		for (const FGSInputAction& Action : InputConfig->InputActions)
 		{
-			if (PressedFunc)
+			if (Action.InputAction && Action.InputTag.IsValid())
 			{
-				BindAction(Action.InputAction, ETriggerEvent::Started, Object, PressedFunc, Action.InputTag);
-			}
-			if (ReleasedFunc)
-			{
-				BindAction(Action.InputAction, ETriggerEvent::Completed, Object, ReleasedFunc, Action.InputTag);
-			}
-			if (HeldFunc)
-			{
-				BindAction(Action.InputAction, ETriggerEvent::Triggered, Object, HeldFunc, Action.InputTag);
+				if (PressedFunc)
+				{
+					BindAction(Action.InputAction, ETriggerEvent::Started, Object, PressedFunc, Action.InputTag);
+				}
+				if (ReleasedFunc)
+				{
+					BindAction(Action.InputAction, ETriggerEvent::Completed, Object, ReleasedFunc, Action.InputTag);
+				}
+				if (HeldFunc)
+				{
+					BindAction(Action.InputAction, ETriggerEvent::Triggered, Object, HeldFunc, Action.InputTag);
+				}
 			}
 		}
 	}
+	
 }

@@ -6,6 +6,8 @@
 #include "Character/GSBaseCharacterClass.h"
 #include "GSPlayerCharacter.generated.h"
 
+class UCameraComponent;
+class USpringArmComponent;
 class UInputMappingContext;
 class UInputAction;
 
@@ -27,5 +29,10 @@ protected:
 private:
 	void InitAbilityActorInfo();
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
+	TObjectPtr<USpringArmComponent> CameraBoom;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
+	TObjectPtr<UCameraComponent> PlayerCamera;
 	
 };

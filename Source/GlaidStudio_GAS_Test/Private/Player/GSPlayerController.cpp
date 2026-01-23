@@ -26,13 +26,17 @@ void AGSPlayerController::Tick(float DeltaTime)
 void AGSPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
-
+	
+	checkf(InputComponent, TEXT("Can't find InputComponent"));
 	UGSEnhancedInputComponent* GSInputComponent = CastChecked<UGSEnhancedInputComponent>(InputComponent);
 	GSInputComponent->BindAbilityActions(InputConfig,
 		this,
 		&AGSPlayerController::OnAbilityInputTagPressed,
 		&AGSPlayerController::OnAbilityInputTagReleased,
 		&AGSPlayerController::OnAbilityInputTagHeld);
+
+	GSInputComponent->BindAction(MoveInputAction, ETriggerEvent::Triggered, this, &AGSPlayerController::Move);
+	GSInputComponent->BindAction(LookInputAction, ETriggerEvent::Triggered, this, &AGSPlayerController::Look);
 }
 
 void AGSPlayerController::OnAbilityInputTagPressed(FGameplayTag InputTag)
@@ -65,4 +69,14 @@ void AGSPlayerController::Move(const FInputActionValue& InputActionValue)
 		ControlledPawn->AddMovementInput(Right, InputVector2D.X);
 	}
 }
+
+void AGSPlayerController::Look(const FInputActionValue& InputActionValue)
+{
+	const FVector2D InputVector2D = InputActionValue.Get<FVector2D>();
+
+	GetPawn()->AddControllerYawInput(InputVector2D.X * CameraSensitivity);
+	GetPawn()->AddControllerPitchInput(InputVector2D.Y * CameraSensitivity);
+}
+
+
 

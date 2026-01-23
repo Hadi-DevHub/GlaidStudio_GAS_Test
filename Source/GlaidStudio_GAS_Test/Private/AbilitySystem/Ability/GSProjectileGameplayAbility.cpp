@@ -5,9 +5,9 @@
 #include "Actor/GSProjectile.h"
 #include "Interface/CombatInterface.h"
 
-AGSProjectile* UGSProjectileGameplayAbility::SpawnProjectile(const FVector& ProjectileTargetLocation) const
+void UGSProjectileGameplayAbility::SpawnProjectile(const FVector& ProjectileTargetLocation)
 {
-	if (ProjectileClass == nullptr) return nullptr;
+	if (ProjectileClass == nullptr) return;
 
 	const FVector CombatSocketLocation = ICombatInterface::Execute_GetCombatSocketLocation(GetAvatarActorFromActorInfo());
 	const FRotator Rotation = (ProjectileTargetLocation - CombatSocketLocation).Rotation();
@@ -29,6 +29,4 @@ AGSProjectile* UGSProjectileGameplayAbility::SpawnProjectile(const FVector& Proj
 
 	Projectile->DamageEffectSpecHandle = EffectHandle;
 	Projectile->FinishSpawning(SpawnTransform);
-	
-	return Projectile;
 }

@@ -28,6 +28,9 @@ public:
 	/** Set Input */
 	virtual void SetupInputComponent() override;
 
+	void TraceUnderCursor(FHitResult& UnderCursor);
+	FVector GetHitUnderCursor() const { return UnderCursor.ImpactPoint; };
+
 protected:
 
 	/** Gameplay Ability Input */
@@ -46,6 +49,12 @@ private:
 
 	/** Input Variables */
 
+	UPROPERTY()
+	FHitResult UnderCursor;
+
+	UPROPERTY(EditDefaultsOnly, Category = Input)
+	float TraceDistance = 5000.f;
+	
 	UPROPERTY(EditDefaultsOnly, Category = Input)
 	TObjectPtr<UInputMappingContext> GSMappingContext;
 

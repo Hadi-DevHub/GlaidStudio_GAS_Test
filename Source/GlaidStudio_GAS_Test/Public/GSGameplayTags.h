@@ -6,15 +6,26 @@
 
 namespace GSGameplayTags
 {
-	/** Inputs */
+	//-----------------//
+	//	  Input Tags   //
+	//-----------------//
+	
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_LMB);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_SPACE);
 
-	/** Abilities */
+	//-----------------//
+	//	 Ability Tags  //
+	//-----------------//
+	
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Ability_FireBall);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Ability_Berserk);
 	
-	/** Attributes */
+	//------------------//
+	//	 Cooldown Tags  //
+	//------------------//
+	
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Cooldown_FireBall);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Cooldown_Berserk);
 
 }
 	

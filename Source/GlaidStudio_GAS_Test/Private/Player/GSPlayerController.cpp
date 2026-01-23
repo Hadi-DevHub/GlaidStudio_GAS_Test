@@ -9,6 +9,7 @@
 #include "Character/GSPlayerCharacter.h"
 #include "GameFramework/Character.h"
 #include "Input/GSEnhancedInputComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 void AGSPlayerController::BeginPlay()
 {
@@ -24,6 +25,7 @@ void AGSPlayerController::BeginPlay()
 void AGSPlayerController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	TraceUnderCursor(UnderCursor);
 }
 
 void AGSPlayerController::SetupInputComponent()
@@ -42,6 +44,53 @@ void AGSPlayerController::SetupInputComponent()
 	GSInputComponent->BindAction(MoveInputAction, ETriggerEvent::Triggered, this, &AGSPlayerController::Move);
 	GSInputComponent->BindAction(LookInputAction, ETriggerEvent::Triggered, this, &AGSPlayerController::Look);
 	GSInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &AGSPlayerController::Jump);
+}
+
+void AGSPlayerController::TraceUnderCursor(FHitResult& TraceHitResult)
+{
+	FVector2D ViewportSize;
+	if (GEngine && GEngine->GameViewport)
+	{
+		GEngine->GameViewport->GetViewportSize(ViewportSize);
+	}
+
+	FVector2D CursorPosition(ViewportSize.X / 2, ViewportSize.Y / 2);
+	FVector CursorWorldPosition;
+	FVector CursorDirection;
+
+	bool bScreenToWorld = 	UGameplayStatics::DeprojectScreenToWorld(
+		this,
+		CursorPosition,
+		CursorWorldPosition,
+		CursorDirection
+		);
+
+	if(bScreenToWorld)
+	{
+		FVector Start = CursorWorldPosition;
+		FVector End = Start + CursorDirection * TraceDistance;
+
+		GetWorld()->LineTraceSingleByChannel(
+			TraceHitResult,
+			Start,
+			End,
+			ECC_Visibility
+			);
+		if (!TraceHitResult.bBlockingHit)
+		{
+			TraceHitResult.ImpactPoint = End;
+		}
+		else
+		{
+			DrawDebugSphere(
+				GetWorld(),
+				TraceHitResult.ImpactPoint,
+				15.f,
+				8,
+				FColor::Yellow
+				);
+		}
+	}
 }
 
 UGSAbilitySystemComponent* AGSPlayerController::GetGS_ASC() const

@@ -6,6 +6,7 @@
 #include "AbilitySystemComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Player/GSPlayerController.h"
 #include "Player/GSPlayerState.h"
 
 AGSPlayerCharacter::AGSPlayerCharacter()
@@ -34,6 +35,12 @@ void AGSPlayerCharacter::BeginPlay()
 void AGSPlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+}
+
+FVector AGSPlayerCharacter::GetCursorHitResult_Implementation()
+{
+	AGSPlayerController* PlayerController = Cast<AGSPlayerController>(GetController());
+	return PlayerController->GetHitUnderCursor();
 }
 
 void AGSPlayerCharacter::InitAbilityActorInfo()

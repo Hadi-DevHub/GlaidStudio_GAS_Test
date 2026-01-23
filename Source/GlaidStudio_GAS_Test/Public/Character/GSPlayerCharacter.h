@@ -26,6 +26,10 @@ protected:
 
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
+	
+	/** Combat Interface */
+
+	virtual FVector GetCursorHitResult_Implementation() override;
 
 private:
 

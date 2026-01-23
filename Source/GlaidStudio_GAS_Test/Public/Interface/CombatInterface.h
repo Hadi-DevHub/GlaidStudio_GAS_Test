@@ -21,4 +21,7 @@ public:
 	
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	FVector GetCombatSocketLocation();
+
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	FVector GetCursorHitResult();
 };

@@ -5,7 +5,6 @@
 
 #include "AbilitySystemComponent.h"
 #include "Camera/CameraComponent.h"
-#include "Components/CapsuleComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Player/GSPlayerState.h"
 
@@ -24,6 +23,7 @@ void AGSPlayerCharacter::PossessedBy(AController* NewController)
 	Super::PossessedBy(NewController);
 	
 	InitAbilityActorInfo();
+	GiveStartupAbilities();
 }
 
 void AGSPlayerCharacter::BeginPlay()
@@ -44,4 +44,3 @@ void AGSPlayerCharacter::InitAbilityActorInfo()
 	AbilitySystemComponent = GSPlayerState->GetAbilitySystemComponent();
 	AttributeSet = GSPlayerState->GetAttributeSet();
 }
-

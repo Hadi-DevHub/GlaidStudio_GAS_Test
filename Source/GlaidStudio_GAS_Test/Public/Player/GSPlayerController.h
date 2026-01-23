@@ -7,6 +7,7 @@
 #include "GameplayTagContainer.h"
 #include "GSPlayerController.generated.h"
 
+class UGSAbilitySystemComponent;
 struct FInputActionValue;
 class UGSInputConfig;
 class UInputAction;
@@ -24,26 +25,35 @@ public:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 
-	/** Input */
+	/** Set Input */
 	virtual void SetupInputComponent() override;
 
 protected:
 
-	/** Input */
+	/** Gameplay Ability Input */
 	void OnAbilityInputTagPressed(FGameplayTag InputTag);
 	void OnAbilityInputTagReleased(FGameplayTag InputTag);
 	void OnAbilityInputTagHeld(FGameplayTag InputTag);
-	
+
+	/** Base Control Input */
 	void Move(const FInputActionValue& InputActionValue);
 	void Look(const FInputActionValue& InputActionValue);
+	void Jump(const FInputActionValue& InputActionValue);
 	
 private:
+
+	UGSAbilitySystemComponent* GetGS_ASC() const;
+
+	/** Input Variables */
 
 	UPROPERTY(EditDefaultsOnly, Category = Input)
 	TObjectPtr<UInputMappingContext> GSMappingContext;
 
 	UPROPERTY(EditDefaultsOnly, Category = Input)
 	TObjectPtr<UInputAction> MoveInputAction;
+
+	UPROPERTY(EditDefaultsOnly, Category = Input)
+	TObjectPtr<UInputAction> JumpAction;
 
 	UPROPERTY(EditDefaultsOnly, Category = Input)
 	TObjectPtr<UInputAction> LookInputAction;

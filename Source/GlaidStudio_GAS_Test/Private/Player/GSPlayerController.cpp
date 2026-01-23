@@ -3,9 +3,12 @@
 
 #include "Player/GSPlayerController.h"
 
+#include "AbilitySystemBlueprintLibrary.h"
 #include "EnhancedInputSubsystems.h"
+#include "AbilitySystem/GSAbilitySystemComponent.h"
+#include "Character/GSPlayerCharacter.h"
+#include "GameFramework/Character.h"
 #include "Input/GSEnhancedInputComponent.h"
-
 
 void AGSPlayerController::BeginPlay()
 {
@@ -33,25 +36,38 @@ void AGSPlayerController::SetupInputComponent()
 		this,
 		&AGSPlayerController::OnAbilityInputTagPressed,
 		&AGSPlayerController::OnAbilityInputTagReleased,
-		&AGSPlayerController::OnAbilityInputTagHeld);
+		&AGSPlayerController::OnAbilityInputTagHeld
+		);
 
 	GSInputComponent->BindAction(MoveInputAction, ETriggerEvent::Triggered, this, &AGSPlayerController::Move);
 	GSInputComponent->BindAction(LookInputAction, ETriggerEvent::Triggered, this, &AGSPlayerController::Look);
+	GSInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &AGSPlayerController::Jump);
+}
+
+UGSAbilitySystemComponent* AGSPlayerController::GetGS_ASC() const
+{
+	if (UGSAbilitySystemComponent* GS_ASC = Cast<UGSAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetPawn())))
+	{
+		return GS_ASC;
+	}
+	return nullptr;
 }
 
 void AGSPlayerController::OnAbilityInputTagPressed(FGameplayTag InputTag)
 {
-	GEngine->AddOnScreenDebugMessage(0, 2.f, FColor::Yellow, *InputTag.ToString());
+	GetGS_ASC()->AbilityInputTagPressed(InputTag);
 }
 
 void AGSPlayerController::OnAbilityInputTagReleased(FGameplayTag InputTag)
 {
-	GEngine->AddOnScreenDebugMessage(1, 2.f, FColor::Green, *InputTag.ToString());
+	GetGS_ASC()->AbilityInputTagReleased(InputTag);
+
 }
 
 void AGSPlayerController::OnAbilityInputTagHeld(FGameplayTag InputTag)
 {
-	GEngine->AddOnScreenDebugMessage(2, 2.f, FColor::Blue, *InputTag.ToString());
+	GetGS_ASC()->AbilityInputTagHeld(InputTag);
+
 }
 
 void AGSPlayerController::Move(const FInputActionValue& InputActionValue)
@@ -77,6 +93,16 @@ void AGSPlayerController::Look(const FInputActionValue& InputActionValue)
 	GetPawn()->AddControllerYawInput(InputVector2D.X * CameraSensitivity);
 	GetPawn()->AddControllerPitchInput(InputVector2D.Y * CameraSensitivity);
 }
+
+
+void AGSPlayerController::Jump(const FInputActionValue& InputActionValue)
+{
+	if (ACharacter* PlayerCharacter = Cast<ACharacter>(GetPawn()))
+	{
+		PlayerCharacter->Jump();
+	}
+}
+
 
 
 

@@ -16,7 +16,10 @@ class GLAIDSTUDIO_GAS_TEST_API UGSGameplayAbility : public UGameplayAbility
 
 public:
 
-	UPROPERTY(EditDefaultsOnly, Category = "Ability Input")
+	UPROPERTY(EditDefaultsOnly, Category = "Ability Properties | Input")
 	FGameplayTag InputTag = FGameplayTag();
+
+	UPROPERTY(EditDefaultsOnly, Category = "Ability Properties | Gameplay Effect")
+	TSubclassOf<UGameplayEffect> AssociatedGameplayEffect;
 	
 };

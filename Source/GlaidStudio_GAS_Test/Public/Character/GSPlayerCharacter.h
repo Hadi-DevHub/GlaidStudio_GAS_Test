@@ -6,6 +6,7 @@
 #include "Character/GSBaseCharacterClass.h"
 #include "GSPlayerCharacter.generated.h"
 
+class UGameplayAbility;
 class UCameraComponent;
 class USpringArmComponent;
 class UInputMappingContext;
@@ -27,7 +28,12 @@ protected:
 	virtual void Tick(float DeltaTime) override;
 
 private:
+
+	/** Gameplay Ability Setup */
+
 	void InitAbilityActorInfo();
+
+	/** Camera Setup */
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
 	TObjectPtr<USpringArmComponent> CameraBoom;

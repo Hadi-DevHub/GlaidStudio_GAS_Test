@@ -1,7 +1,7 @@
 
 
 #include "Character/GSBaseCharacterClass.h"
-
+#include "AbilitySystem/GSAbilitySystemComponent.h"
 #include "Components/CapsuleComponent.h"
 
 AGSBaseCharacterClass::AGSBaseCharacterClass()
@@ -34,6 +34,22 @@ void AGSBaseCharacterClass::BeginPlay()
 void AGSBaseCharacterClass::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
+
+void AGSBaseCharacterClass::GiveStartupAbilities() const 
+{
+	UGSAbilitySystemComponent* GS_ASC = Cast<UGSAbilitySystemComponent>(AbilitySystemComponent);
+	if (GS_ASC)
+	{
+		GS_ASC->AddCharacterAbilities(StartupAbilities);
+	}
+}
+
+FVector AGSBaseCharacterClass::GetCombatSocketLocation_Implementation()
+{
+	if (!CombatSocketName.IsValid()) return FVector();
+	
+	return GetMesh()->GetSocketLocation(CombatSocketName);
+}
+
 

@@ -4,6 +4,7 @@
 #include "Character/GSPlayerCharacter.h"
 
 #include "AbilitySystemComponent.h"
+#include "GSGameplayTags.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Player/GSPlayerController.h"
@@ -26,11 +27,13 @@ void AGSPlayerCharacter::PossessedBy(AController* NewController)
 	InitAbilityActorInfo();
 	GiveStartupAbilities();
 	AddCharacterAttributes();
+	AbilitySystemComponent->RegisterGameplayTagEvent(GSGameplayTags::Ability_Berserk, EGameplayTagEventType::NewOrRemoved).AddUObject(this, &AGSPlayerCharacter::OnBerserkTagChanged);
 }
 
 void AGSPlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	
 }
 
 void AGSPlayerCharacter::Tick(float DeltaTime)
@@ -51,4 +54,12 @@ void AGSPlayerCharacter::InitAbilityActorInfo()
 	GSPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(GSPlayerState, this);
 	AbilitySystemComponent = GSPlayerState->GetAbilitySystemComponent();
 	AttributeSet = GSPlayerState->GetAttributeSet();
+}
+
+void AGSPlayerCharacter::OnBerserkTagChanged(const FGameplayTag Tag, int32 NewValue)
+{
+	if (NewValue == 0)
+	{
+		AbilitySystemComponent->RemoveGameplayCue(GSGameplayTags::GameplayCue_Berserk);
+	}
 }

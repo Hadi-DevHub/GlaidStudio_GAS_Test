@@ -37,16 +37,24 @@ void AGSProjectile::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AA
 		if (UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(OtherActor))
 		{
 			TargetASC->ApplyGameplayEffectSpecToSelf(*DamageEffectSpecHandle.Data);
+			Destroy();
+			return;
 		}
-		Destroy();
 	}
+	if (ImpactVFX)
+	{
+		UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactSFX, GetActorLocation());
+	}
+	if (ImpactSFX)
+	{
+		UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), ImpactVFX, GetActorLocation());
+	}
+	Destroy();
 }
 
 void AGSProjectile::Destroyed()
 {
 	Super::Destroyed();
-	UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactSFX, GetActorLocation());
-	UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), ImpactVFX, GetActorLocation());
 }
 
 

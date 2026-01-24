@@ -27,6 +27,7 @@ AGSProjectile* UGSProjectileGameplayAbility::SpawnProjectile(const FVector& Proj
 
 	UAbilitySystemComponent* SourceASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetAvatarActorFromActorInfo());
 	FGameplayEffectContextHandle EffectContext = SourceASC->MakeEffectContext();
+	EffectContext.AddSourceObject(GetAvatarActorFromActorInfo());
 	FGameplayEffectSpecHandle EffectHandle = SourceASC->MakeOutgoingSpec(AssociatedGameplayEffect, GetAbilityLevel(), EffectContext);
 
 	Projectile->DamageEffectSpecHandle = EffectHandle;

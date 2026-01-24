@@ -23,4 +23,11 @@ namespace GSGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Cooldown_FireBall, "Cooldown.FireBall");
 	UE_DEFINE_GAMEPLAY_TAG(Cooldown_Berserk, "Cooldown.Berserk");
 
+	//-----------------//
+	//	   Cue Tags    //
+	//-----------------//
+	
+	UE_DEFINE_GAMEPLAY_TAG(GameplayCue_Berserk, "GameplayCue.Berserk");
+
+
 }

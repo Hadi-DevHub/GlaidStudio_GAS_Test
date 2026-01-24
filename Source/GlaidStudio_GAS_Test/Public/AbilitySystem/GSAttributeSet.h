@@ -35,10 +35,18 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "Vital Attributes")
 	FGameplayAttributeData Mana;
 	ATTRIBUTE_ACCESSORS(UGSAttributeSet, Mana)
+	
+	UPROPERTY(BlueprintReadOnly, Category = "Vital Attributes")
+	FGameplayAttributeData MaxPower;
+	ATTRIBUTE_ACCESSORS(UGSAttributeSet, MaxPower)
 
 	UPROPERTY(BlueprintReadOnly, Category = "Combat Attributes")
 	FGameplayAttributeData Power;
 	ATTRIBUTE_ACCESSORS(UGSAttributeSet, Power)
+	
+	UPROPERTY(BlueprintReadOnly, Category = "Combat Attributes")
+	FGameplayAttributeData MaxDefense;
+	ATTRIBUTE_ACCESSORS(UGSAttributeSet, MaxDefense)
 
 	UPROPERTY(BlueprintReadOnly, Category = "Combat Attributes")
 	FGameplayAttributeData Defense;

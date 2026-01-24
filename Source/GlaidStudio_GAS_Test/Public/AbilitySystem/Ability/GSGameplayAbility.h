@@ -19,7 +19,7 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = "Ability Properties | Input")
 	FGameplayTag InputTag = FGameplayTag();
 
-	UPROPERTY(EditDefaultsOnly, Category = "Ability Properties | Gameplay Effect")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Ability Properties | Gameplay Effect")
 	TSubclassOf<UGameplayEffect> AssociatedGameplayEffect;
 	
 };

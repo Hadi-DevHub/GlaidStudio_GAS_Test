@@ -4,6 +4,8 @@
 #include "AbilitySystem/GSAttributeSet.h"
 
 #include "GameplayEffectExtension.h"
+#include "Components/CapsuleComponent.h"
+#include "GameFramework/Character.h"
 
 void UGSAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
 {
@@ -25,6 +27,15 @@ void UGSAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModC
 
 	if (Data.EvaluatedData.Attribute == GetHealthAttribute())
 	{
-		
+		if (GetHealth() == 0)
+		{
+			ACharacter* Character = Cast<ACharacter>(Data.Target.GetAvatarActor());
+			if(Character)
+			{
+				Character->GetCapsuleComponent()->SetCollisionResponseToAllChannels(ECR_Ignore);
+				Character->GetMesh()->SetSimulatePhysics(true);
+				Character->SetLifeSpan(3.f);
+			}
+		}
 	}
 }

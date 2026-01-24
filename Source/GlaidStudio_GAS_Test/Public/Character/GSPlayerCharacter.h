@@ -6,6 +6,7 @@
 #include "Character/GSBaseCharacterClass.h"
 #include "GSPlayerCharacter.generated.h"
 
+struct FGameplayTag;
 class UGameplayAbility;
 class UCameraComponent;
 class USpringArmComponent;
@@ -36,6 +37,8 @@ private:
 	/** Gameplay Ability Setup */
 
 	void InitAbilityActorInfo();
+
+	void OnBerserkTagChanged(const FGameplayTag Tag, int32 NewValue);
 
 	/** Camera Setup */
 

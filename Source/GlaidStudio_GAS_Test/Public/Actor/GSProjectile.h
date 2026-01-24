@@ -5,6 +5,10 @@
 #include "GameplayEffectTypes.h"
 #include "GSProjectile.generated.h"
 
+class UGSProjectileGameplayAbility;
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnProjectileImpactSignature, const FVector&, OnProjectileImpact);
+
+class UNiagaraComponent;
 struct FGameplayEffectSpecHandle;
 class UNiagaraSystem;
 class USphereComponent;
@@ -27,8 +31,6 @@ public:
 protected:
 	virtual void BeginPlay() override;
  	
-/** Gameplay Ability Section */
-
 	UFUNCTION()
 	void OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 		UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
@@ -36,9 +38,14 @@ protected:
 	UFUNCTION()
 	virtual void Destroyed() override;
 
+	void OnHit();
+
 private:
 
 	/** Aesthetics Section */
+
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<UNiagaraComponent> ProjectileNiagaraComponent;
 
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UNiagaraSystem> ImpactVFX;

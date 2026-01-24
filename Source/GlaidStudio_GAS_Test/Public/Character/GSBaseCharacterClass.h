@@ -7,6 +7,7 @@
 #include "Interface/CombatInterface.h"
 #include "GSBaseCharacterClass.generated.h"
 
+class UGameplayEffect;
 class UGameplayAbility;
 class UAbilitySystemComponent;
 class UAttributeSet;
@@ -29,6 +30,7 @@ protected:
 	/** Gameplay Ability Section */
 
 	void GiveStartupAbilities() const;
+	void AddCharacterAttributes() const;
 
 	UPROPERTY()
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
@@ -38,6 +40,9 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly, Category = "GameplayAbility | Abilities")
 	TArray<TSubclassOf<UGameplayAbility>> StartupAbilities;
+
+	UPROPERTY(EditDefaultsOnly, Category = "GameplayAbility | Attributes")
+	TArray<TSubclassOf<UGameplayEffect>> StartupAttributes;
 
 	/** Combat Interface */
 

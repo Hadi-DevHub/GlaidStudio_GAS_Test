@@ -16,10 +16,9 @@ public:
 protected:
 
 	UFUNCTION(BlueprintCallable, Category = "Projectile")
-	void SpawnProjectile(const FVector& ProjectileTargetLocation);
+	AGSProjectile* SpawnProjectile(const FVector& ProjectileTargetLocation);
 
 	UPROPERTY(EditDefaultsOnly, Category = "Ability | Projectile Properties")
 	TSubclassOf<AGSProjectile> ProjectileClass;
-	
 
 };

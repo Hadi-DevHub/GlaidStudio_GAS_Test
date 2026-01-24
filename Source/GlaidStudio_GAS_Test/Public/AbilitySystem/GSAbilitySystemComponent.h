@@ -16,6 +16,7 @@ class GLAIDSTUDIO_GAS_TEST_API UGSAbilitySystemComponent : public UAbilitySystem
 
 public:
 	void AddCharacterAbilities(TArray<TSubclassOf<UGameplayAbility>> Abilities);
+	void AddCharacterAttributes(TArray<TSubclassOf<UGameplayEffect>> Effects);
 
 	void AbilityInputTagPressed(const FGameplayTag& InputTag);
 	void AbilityInputTagReleased(const FGameplayTag& InputTag);

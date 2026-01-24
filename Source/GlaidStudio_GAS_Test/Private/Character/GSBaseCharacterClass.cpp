@@ -45,6 +45,20 @@ void AGSBaseCharacterClass::GiveStartupAbilities() const
 	}
 }
 
+void AGSBaseCharacterClass::AddCharacterAttributes() const
+{
+	if (StartupAttributes.Num() > 0)
+	{
+		for (auto Effect : StartupAttributes)
+		{
+			FGameplayEffectContextHandle ContextHandle = GetAbilitySystemComponent()->MakeEffectContext();
+			ContextHandle.AddSourceObject(this);
+			FGameplayEffectSpecHandle EffectHandle = GetAbilitySystemComponent()->MakeOutgoingSpec(Effect, 1.f, ContextHandle);
+			GetAbilitySystemComponent()->ApplyGameplayEffectSpecToSelf(*EffectHandle.Data.Get());
+		}
+	}
+}
+
 FVector AGSBaseCharacterClass::GetCombatSocketLocation_Implementation()
 {
 	if (!CombatSocketName.IsValid()) return FVector();

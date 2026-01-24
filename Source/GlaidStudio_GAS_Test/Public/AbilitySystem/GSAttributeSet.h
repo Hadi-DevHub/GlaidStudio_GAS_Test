@@ -36,8 +36,17 @@ public:
 	FGameplayAttributeData Mana;
 	ATTRIBUTE_ACCESSORS(UGSAttributeSet, Mana)
 
+	UPROPERTY(BlueprintReadOnly, Category = "Combat Attributes")
+	FGameplayAttributeData Power;
+	ATTRIBUTE_ACCESSORS(UGSAttributeSet, Power)
+
+	UPROPERTY(BlueprintReadOnly, Category = "Combat Attributes")
+	FGameplayAttributeData Defense;
+	ATTRIBUTE_ACCESSORS(UGSAttributeSet, Defense)
+
 
 protected:
 
 	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
+	virtual void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data) override;
 };

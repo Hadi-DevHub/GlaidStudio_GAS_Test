@@ -2,8 +2,12 @@
 
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
+#include "NiagaraComponent.h"
+#include "NiagaraFunctionLibrary.h"
+#include "AbilitySystem/Ability/GSProjectileGameplayAbility.h"
 #include "Components/SphereComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AGSProjectile::AGSProjectile()
@@ -11,6 +15,7 @@ AGSProjectile::AGSProjectile()
 	PrimaryActorTick.bCanEverTick = true;
 	
 	SphereCollisionComponent = CreateDefaultSubobject<USphereComponent>("SphereCollisionComponent");
+	ProjectileNiagaraComponent = CreateDefaultSubobject<UNiagaraComponent>("ProjectileNiagaraComponent");
 	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>("ProjectileMovementComponent");
 }
 
@@ -24,7 +29,9 @@ void AGSProjectile::BeginPlay()
 void AGSProjectile::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	bool bValidOverlap = GetOwner() != nullptr && GetOwner() != OtherActor && OtherActor != this;
+	bool bValidOverlap =
+		OtherActor != GetOwner();
+		
 	if (bValidOverlap && HasAuthority())
 	{
 		if (UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(OtherActor))
@@ -38,5 +45,9 @@ void AGSProjectile::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AA
 void AGSProjectile::Destroyed()
 {
 	Super::Destroyed();
+	UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactSFX, GetActorLocation());
+	UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), ImpactVFX, GetActorLocation());
 }
+
+
 

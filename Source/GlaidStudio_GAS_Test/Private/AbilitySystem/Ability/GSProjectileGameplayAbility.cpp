@@ -4,10 +4,12 @@
 #include "AbilitySystemComponent.h"
 #include "Actor/GSProjectile.h"
 #include "Interface/CombatInterface.h"
+#include "Kismet/GameplayStatics.h"
 
-void UGSProjectileGameplayAbility::SpawnProjectile(const FVector& ProjectileTargetLocation)
+
+AGSProjectile* UGSProjectileGameplayAbility::SpawnProjectile(const FVector& ProjectileTargetLocation)
 {
-	if (ProjectileClass == nullptr) return;
+	if (ProjectileClass == nullptr) return nullptr;
 
 	const FVector CombatSocketLocation = ICombatInterface::Execute_GetCombatSocketLocation(GetAvatarActorFromActorInfo());
 	const FRotator Rotation = (ProjectileTargetLocation - CombatSocketLocation).Rotation();
@@ -28,5 +30,8 @@ void UGSProjectileGameplayAbility::SpawnProjectile(const FVector& ProjectileTarg
 	FGameplayEffectSpecHandle EffectHandle = SourceASC->MakeOutgoingSpec(AssociatedGameplayEffect, GetAbilityLevel(), EffectContext);
 
 	Projectile->DamageEffectSpecHandle = EffectHandle;
+	Projectile->SetOwner(GetAvatarActorFromActorInfo());
 	Projectile->FinishSpawning(SpawnTransform);
+
+	return Projectile;
 }

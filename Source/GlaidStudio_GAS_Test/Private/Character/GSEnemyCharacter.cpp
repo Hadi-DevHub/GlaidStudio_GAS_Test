@@ -20,6 +20,8 @@ AGSEnemyCharacter::AGSEnemyCharacter()
 void AGSEnemyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	GiveStartupAbilities();
+	AddCharacterAttributes();
 }
 
 void AGSEnemyCharacter::Tick(float DeltaTime)

@@ -25,6 +25,7 @@ void AGSPlayerCharacter::PossessedBy(AController* NewController)
 	
 	InitAbilityActorInfo();
 	GiveStartupAbilities();
+	AddCharacterAttributes();
 }
 
 void AGSPlayerCharacter::BeginPlay()

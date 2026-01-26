@@ -102,6 +102,10 @@ UGSAbilitySystemComponent* AGSPlayerController::GetGS_ASC() const
 	return nullptr;
 }
 
+	//---------------//
+	//	   INPUT	 //
+	//---------------//
+
 void AGSPlayerController::OnAbilityInputTagPressed(FGameplayTag InputTag)
 {
 	GetGS_ASC()->AbilityInputTagPressed(InputTag);
@@ -142,7 +146,6 @@ void AGSPlayerController::Look(const FInputActionValue& InputActionValue)
 	GetPawn()->AddControllerYawInput(InputVector2D.X * CameraSensitivity);
 	GetPawn()->AddControllerPitchInput(InputVector2D.Y * CameraSensitivity);
 }
-
 
 void AGSPlayerController::Jump(const FInputActionValue& InputActionValue)
 {

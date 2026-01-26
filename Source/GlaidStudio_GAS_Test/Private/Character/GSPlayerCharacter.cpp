@@ -9,6 +9,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Player/GSPlayerController.h"
 #include "Player/GSPlayerState.h"
+#include "UI/HUD/GSHUD.h"
 
 AGSPlayerCharacter::AGSPlayerCharacter()
 {
@@ -27,13 +28,13 @@ void AGSPlayerCharacter::PossessedBy(AController* NewController)
 	InitAbilityActorInfo();
 	GiveStartupAbilities();
 	AddCharacterAttributes();
+	
 	AbilitySystemComponent->RegisterGameplayTagEvent(GSGameplayTags::Ability_Berserk, EGameplayTagEventType::NewOrRemoved).AddUObject(this, &AGSPlayerCharacter::OnBerserkTagChanged);
 }
 
 void AGSPlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 void AGSPlayerCharacter::Tick(float DeltaTime)
@@ -54,6 +55,14 @@ void AGSPlayerCharacter::InitAbilityActorInfo()
 	GSPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(GSPlayerState, this);
 	AbilitySystemComponent = GSPlayerState->GetAbilitySystemComponent();
 	AttributeSet = GSPlayerState->GetAttributeSet();
+
+	if (AGSPlayerController* PlayerController = Cast<AGSPlayerController>(GetController()))
+	{
+		if (AGSHUD* HUD = Cast<AGSHUD>(PlayerController->GetHUD()))
+		{
+			HUD->InitOverlay(PlayerController, GSPlayerState, AbilitySystemComponent, AttributeSet);
+		}
+	}
 }
 
 void AGSPlayerCharacter::OnBerserkTagChanged(const FGameplayTag Tag, int32 NewValue)

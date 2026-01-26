@@ -80,16 +80,6 @@ void AGSPlayerController::TraceUnderCursor(FHitResult& TraceHitResult)
 		{
 			TraceHitResult.ImpactPoint = End;
 		}
-		else
-		{
-			DrawDebugSphere(
-				GetWorld(),
-				TraceHitResult.ImpactPoint,
-				15.f,
-				8,
-				FColor::Yellow
-				);
-		}
 	}
 }
 

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
+#include "AbilitySystemComponent.h"
 #include "GSWidgetController.generated.h"
 
 class UAbilitySystemComponent;
@@ -40,6 +40,9 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	void SetWidgetControllerParams(const FWidgetControllerParams& WCParams);
+
+	virtual void BroadcastInitialVitalValues();
+	virtual void BindCallbacksToDependencies();
 
 protected:
 	

@@ -6,9 +6,6 @@
 #include "AbilitySystemComponent.h"
 #include "GSAbilitySystemComponent.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class GLAIDSTUDIO_GAS_TEST_API UGSAbilitySystemComponent : public UAbilitySystemComponent
 {
@@ -16,7 +13,7 @@ class GLAIDSTUDIO_GAS_TEST_API UGSAbilitySystemComponent : public UAbilitySystem
 
 public:
 	void AddCharacterAbilities(TArray<TSubclassOf<UGameplayAbility>> Abilities);
-	void AddCharacterAttributes(TArray<TSubclassOf<UGameplayEffect>> Effects);
+	void AddCharacterPassiveAbilities(TArray<TSubclassOf<UGameplayAbility>> Abilities);
 
 	void AbilityInputTagPressed(const FGameplayTag& InputTag);
 	void AbilityInputTagReleased(const FGameplayTag& InputTag);

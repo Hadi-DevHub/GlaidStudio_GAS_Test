@@ -30,6 +30,7 @@ protected:
 	/** Gameplay Ability Section */
 
 	void GiveStartupAbilities() const;
+	void GiveStartupPassiveAbilities() const;
 	void AddCharacterAttributes() const;
 
 	UPROPERTY()
@@ -40,6 +41,9 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly, Category = "GameplayAbility | Abilities")
 	TArray<TSubclassOf<UGameplayAbility>> StartupAbilities;
+
+	UPROPERTY(EditDefaultsOnly, Category = "GameplayAbility | Abilities")
+	TArray<TSubclassOf<UGameplayAbility>> StartupPassiveAbilities;
 
 	UPROPERTY(EditDefaultsOnly, Category = "GameplayAbility | Attributes")
 	TArray<TSubclassOf<UGameplayEffect>> StartupAttributes;

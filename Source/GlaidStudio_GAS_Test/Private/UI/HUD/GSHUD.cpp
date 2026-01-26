@@ -1,14 +1,17 @@
 #include "UI/HUD/GSHUD.h"
 
 #include "UI/Widget/GSUserWidget.h"
+#include "UI/WidgetController/GSOverlayWidgetController.h"
 #include "UI/WidgetController/GSWidgetController.h"
 
-UGSWidgetController* AGSHUD::CreateOrGetOverlayWidgetController(const FWidgetControllerParams& WidgetParams)
+UGSOverlayWidgetController* AGSHUD::CreateOrGetOverlayWidgetController(const FWidgetControllerParams& WidgetParams)
 {
 	if (GSOverlayWidgetController == nullptr)
 	{
-		UGSWidgetController* WidgetController = NewObject<UGSWidgetController>(this, GSOverlayWidgetControllerClass);
+		UGSOverlayWidgetController* WidgetController = NewObject<UGSOverlayWidgetController>(this, GSOverlayWidgetControllerClass);
 		WidgetController->SetWidgetControllerParams(WidgetParams);
+		WidgetController->BindCallbacksToDependencies();
+		return WidgetController;
 	}
 
 	return GSOverlayWidgetController;
@@ -20,16 +23,6 @@ void AGSHUD::InitOverlay(APlayerController* PlayerController, APlayerState* Play
 	checkf(GSOverlayWidgetClass, TEXT("Overlay Widget Class uninitialized, please fill out WBP_GSHUD"));
 	checkf(GSOverlayWidgetControllerClass, TEXT("Overlay Widget Controller Class uninitialized, please fill out WBP_GSHUD"));
 
-	//-----------------------------------------------//
-	//    Setting Up The Overlay Widget Controller   //
-	//-----------------------------------------------//
-
-	// --- Membuat param untuk overlay widget controller
-	FWidgetControllerParams WidgetParams(PlayerController, PlayerState, AbilitySystemComponent, AttributeSet);
-	
-	// --- Membuat param untuk overlay widget controller
-	UGSWidgetController* WidgetController = CreateOrGetOverlayWidgetController(WidgetParams);
-	
 	//--------------------------------------//
 	//		Setting Up The USER WIDGET      //
 	//--------------------------------------//
@@ -40,6 +33,17 @@ void AGSHUD::InitOverlay(APlayerController* PlayerController, APlayerState* Play
 	// --- Cast ke Overlay widget untuk memanggil fungsi SetWidgetController
 	GSOverlayWidget = Cast<UGSUserWidget>(UserWidget);
 	
+	//-----------------------------------------------//
+	//    Setting Up The Overlay Widget Controller   //
+	//-----------------------------------------------//
+
+	// --- Membuat param untuk overlay widget controller
+	FWidgetControllerParams WidgetParams(PlayerController, PlayerState, AbilitySystemComponent, AttributeSet);
+	
+	// --- Membuat param untuk overlay widget controller
+	UGSOverlayWidgetController* WidgetController = CreateOrGetOverlayWidgetController(WidgetParams);
+
 	GSOverlayWidget->SetWidgetController(WidgetController);
+	WidgetController->BroadcastInitialVitalValues();
 	GSOverlayWidget->AddToViewport();
 }

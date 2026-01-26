@@ -1,0 +1,60 @@
+Selamat pagi, siang, malam, Tester!
+
+berikut sedikit penjelasan tentang projectnya:
+
+HOW TO OPEN:
+
+1. ini projectnya 50% C++, dan 50% Blueprint, sehingga untuk menjalankan projectnya harus lewat compiler.
+
+
+||-----------------------------||
+
+
+-- HOW TO TEST --
+
+Abilities and Inputs :
+
+Fire Ball -> [ LMB ]
+Deals 40 Damage
+Cost 20 Mana
+Cooldown 0.5 Sec
+
+Fire Ball deals 0.4 x Power Attribute.
+(100 Power = 40 Damage) 
+(150 Power = 60 Damage)
+
+Plays an Explosion GameplayCue when overlapping with Enemies
+
+Blocks other abilities from activating when the animation is playing
+
+		---
+
+Berserk -> [ SPACE ]
+Cost 40 Mana
+Cooldown 10 Sec
+
+Plays an animation, on animation notify, buffing the current character's power by 50% -> ( 100 Power + 1/2 * Power = 150 Power)
+
+Plays Niagara GameplayCue on the owner for Visual Feedback
+Blocks other abilities from activating when the animation is playing
+
+Mana Regen -> Passive
+Passively regenerates player's Mana
+
+
+||-----------------------------||
+
+-- PLAYER's ATTRIBUTES --
+
+Attribute Health = 200
+Attribute MaxHealth = 200
+
+Attribute Mana = 100
+Attribute Max = 100
+
+Attribute Power = 100
+Attribute Max Power = 100
+
+( tidak usah dianggap )
+Attribute Defense = 100
+Attribute Max Defense = 100

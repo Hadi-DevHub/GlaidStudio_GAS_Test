@@ -5,6 +5,7 @@
 #include "GSHUD.generated.h"
 
 class UAbilitySystemComponent;
+class UGSOverlayWidgetController;
 class UAttributeSet;
 class UGSUserWidget;
 class UGSWidgetController;
@@ -17,7 +18,7 @@ class GLAIDSTUDIO_GAS_TEST_API AGSHUD : public AHUD
 	
 public:
 
-	UGSWidgetController* CreateOrGetOverlayWidgetController(const FWidgetControllerParams& WidgetParams);
+	UGSOverlayWidgetController* CreateOrGetOverlayWidgetController(const FWidgetControllerParams& WidgetParams);
 
 	void InitOverlay(APlayerController* PlayerController, APlayerState* PlayerState, UAbilitySystemComponent* AbilitySystemComponent, UAttributeSet* AttributeSet);
 
@@ -30,10 +31,10 @@ private:
 	TSubclassOf<UGSUserWidget> GSOverlayWidgetClass;
 
 	UPROPERTY()
-	TObjectPtr<UGSWidgetController> GSOverlayWidgetController;
+	TObjectPtr<UGSOverlayWidgetController> GSOverlayWidgetController;
 	
 	UPROPERTY(EditAnywhere)
-	TSubclassOf<UGSWidgetController> GSOverlayWidgetControllerClass;
+	TSubclassOf<UGSOverlayWidgetController> GSOverlayWidgetControllerClass;
 	
 	
 };

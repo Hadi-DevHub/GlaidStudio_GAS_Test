@@ -10,3 +10,11 @@ void UGSWidgetController::SetWidgetControllerParams(const FWidgetControllerParam
 	
 	AttributeSet = WCParams.AttributeSet;
 }
+
+void UGSWidgetController::BroadcastInitialVitalValues()
+{
+}
+
+void UGSWidgetController::BindCallbacksToDependencies()
+{
+}

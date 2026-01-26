@@ -26,15 +26,13 @@ void AGSPlayerCharacter::PossessedBy(AController* NewController)
 	Super::PossessedBy(NewController);
 	
 	InitAbilityActorInfo();
-	GiveStartupAbilities();
-	AddCharacterAttributes();
-	
 	AbilitySystemComponent->RegisterGameplayTagEvent(GSGameplayTags::Ability_Berserk, EGameplayTagEventType::NewOrRemoved).AddUObject(this, &AGSPlayerCharacter::OnBerserkTagChanged);
 }
 
 void AGSPlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
 }
 
 void AGSPlayerCharacter::Tick(float DeltaTime)
@@ -55,6 +53,9 @@ void AGSPlayerCharacter::InitAbilityActorInfo()
 	GSPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(GSPlayerState, this);
 	AbilitySystemComponent = GSPlayerState->GetAbilitySystemComponent();
 	AttributeSet = GSPlayerState->GetAttributeSet();
+	GiveStartupAbilities();
+	GiveStartupPassiveAbilities();
+    AddCharacterAttributes();
 
 	if (AGSPlayerController* PlayerController = Cast<AGSPlayerController>(GetController()))
 	{

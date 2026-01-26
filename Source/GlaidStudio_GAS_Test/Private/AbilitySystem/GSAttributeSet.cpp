@@ -34,4 +34,8 @@ void UGSAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModC
 			}
 		}
 	}
+	if (Data.EvaluatedData.Attribute == GetManaAttribute())
+	{
+		SetMana(FMath::Clamp(GetMana(), 0.0f, GetMaxMana()));
+	}
 }

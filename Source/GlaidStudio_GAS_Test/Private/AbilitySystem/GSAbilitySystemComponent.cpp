@@ -15,6 +15,16 @@ void UGSAbilitySystemComponent::AddCharacterAbilities(TArray<TSubclassOf<UGamepl
 	}
 }
 
+void UGSAbilitySystemComponent::AddCharacterPassiveAbilities(TArray<TSubclassOf<UGameplayAbility>> Abilities)
+{
+	FScopedAbilityListLock(*this);
+	for (TSubclassOf<UGameplayAbility> Ability : Abilities)
+	{
+		FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(Ability, 1.f);
+		GiveAbility(AbilitySpec);
+		TryActivateAbility(AbilitySpec.Handle);
+	}
+}
 
 void UGSAbilitySystemComponent::AbilityInputTagPressed(const FGameplayTag& InputTag)
 {

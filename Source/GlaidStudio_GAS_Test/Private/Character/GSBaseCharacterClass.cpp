@@ -45,6 +45,15 @@ void AGSBaseCharacterClass::GiveStartupAbilities() const
 	}
 }
 
+void AGSBaseCharacterClass::GiveStartupPassiveAbilities() const
+{
+	UGSAbilitySystemComponent* GS_ASC = Cast<UGSAbilitySystemComponent>(AbilitySystemComponent);
+	if (GS_ASC)
+	{
+		GS_ASC->AddCharacterPassiveAbilities(StartupPassiveAbilities);
+	}
+}
+
 void AGSBaseCharacterClass::AddCharacterAttributes() const
 {
 	if (StartupAttributes.Num() > 0)
